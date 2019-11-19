@@ -93,7 +93,10 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
            // textView.setText(data);
-            textView.setText(matches.toString());
+
+            for(Match m : matches){
+                textView.setText(m.getTeam1()+" "+m.getScore1()+" "+m.getScore2()+ " "+m.getTeam2()+" "+m.getStatus()+" "+m.getTime());
+            }
         }
     }
 
