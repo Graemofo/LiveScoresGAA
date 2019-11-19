@@ -1,10 +1,16 @@
 package com.nci.graeme.livescoregaa;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,21 +19,28 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ListView.OnCreateContextMenuListener{
+
+    ListView listview;
     TextView textView;
+    TextView textView2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = (TextView)findViewById(R.id.textview);
+        textView = findViewById(R.id.textview);
+        textView2 = findViewById(R.id.textview2);
+        listview = findViewById(R.id.listview);
 
         new getData().execute();
 
     }//end of on create
 
     public class getData extends AsyncTask<Void, Void, Void>{
+
         String data = "";
         ArrayList<Match> matches = new ArrayList<Match>();
+
         @Override
         protected Void doInBackground(Void... voids) {
             String url = "https://www.clubscores.ie/embed/957/trackers";
@@ -78,10 +91,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }// end of for
 
-
-
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -92,15 +101,44 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-           // textView.setText(data);
+//            ArrayAdapter<Match> itemsAdapter =
+//                    new ArrayAdapter<Match>(MainActivity.this, android.R.layout.simple_list_item_1, matches);
+//            listview.setAdapter(itemsAdapter);
+            UsersAdapter adapter = new UsersAdapter(MainActivity.this, matches);
+             // Attach the adapter to a ListView
+            ListView listView = findViewById(R.id.listview);
+            listView.setAdapter(adapter);
 
-            for(Match m : matches){
-                textView.setText(m.getTeam1()+" "+m.getScore1()+" "+m.getScore2()+ " "+m.getTeam2()+" "+m.getStatus()+" "+m.getTime());
-            }
+//            for(Match m : matches){
+//                textView2.setText(m.getLeague());
+//                textView.setText(m.getTeam1()+" "+m.getScore1()+"  -  "+m.getScore2()+ " "+m.getTeam2()+" "+m.getStatus()+" "+m.getTime());
+//            }
         }
     }
 
 
-
-
 }//end of MainActivity
+//add public
+// https://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView
+class UsersAdapter extends ArrayAdapter<Match> {
+    public UsersAdapter(Context context, ArrayList<Match> users) {
+        super(context, 0, users);
+    }
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // Get the data item for this position
+        Match match = getItem(position);
+        // Check if an existing view is being reused, otherwise inflate the view
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.match, parent, false);
+        }
+        // Lookup view for data population
+        TextView tvName =  convertView.findViewById(R.id.team1);
+        TextView tvHome =  convertView.findViewById(R.id.team2);
+        // Populate the data into the template view using the data object
+        tvName.setText(match.getTeam1());
+        tvHome.setText(match.getTeam2());
+        // Return the completed view to render on screen
+        return convertView;
+    }
+}
