@@ -133,19 +133,21 @@ class UsersAdapter extends ArrayAdapter<Match> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.match, parent, false);
         }
         // Lookup view for data population
-        TextView tvName =  convertView.findViewById(R.id.team1);
-        TextView tvHome =  convertView.findViewById(R.id.team2);
+        TextView team1 =  convertView.findViewById(R.id.team1);
+        TextView team2 =  convertView.findViewById(R.id.team2);
         TextView score1 = convertView.findViewById(R.id.score1);
         TextView score2 = convertView.findViewById(R.id.score2);
         TextView status = convertView.findViewById(R.id.status);
         TextView time = convertView.findViewById(R.id.time);
+        TextView league = convertView.findViewById(R.id.league);
         // Populate the data into the template view using the data object
-        tvName.setText(match.getTeam1());
-        tvHome.setText(match.getTeam2());
+        team1.setText(match.getTeam1());
+        team2.setText(match.getTeam2());
         score1.setText(match.getScore1());
         score2.setText(match.getScore2());
         status.setText(match.getStatus());
         time.setText(match.getTime());
+        league.setText(match.getLeague());
         // Return the completed view to render on screen
         return convertView;
     }

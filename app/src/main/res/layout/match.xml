@@ -3,13 +3,30 @@
     android:layout_height="match_parent"
     >
 
+    <LinearLayout
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/league"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#25292B"
+            android:fontFamily="@font/montserrat"
+            android:text="League"
+            android:textAlignment="center"
+            android:textColor="#ECE3E3" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
+
+
 
         <TextView
             android:fontFamily="@font/montserrat"
@@ -104,6 +121,6 @@
 
 
 
-
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
