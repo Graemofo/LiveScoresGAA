@@ -22,14 +22,14 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements ListView.OnCreateContextMenuListener{
 
     ListView listview;
-    TextView textView;
-    TextView textView2;
+  //  TextView textView;
+  //  TextView textView2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = findViewById(R.id.textview);
-        textView2 = findViewById(R.id.textview2);
+      //  textView = findViewById(R.id.textview);
+      //  textView2 = findViewById(R.id.textview2);
         listview = findViewById(R.id.listview);
 
         new getData().execute();
@@ -135,9 +135,17 @@ class UsersAdapter extends ArrayAdapter<Match> {
         // Lookup view for data population
         TextView tvName =  convertView.findViewById(R.id.team1);
         TextView tvHome =  convertView.findViewById(R.id.team2);
+        TextView score1 = convertView.findViewById(R.id.score1);
+        TextView score2 = convertView.findViewById(R.id.score2);
+        TextView status = convertView.findViewById(R.id.status);
+        TextView time = convertView.findViewById(R.id.time);
         // Populate the data into the template view using the data object
         tvName.setText(match.getTeam1());
         tvHome.setText(match.getTeam2());
+        score1.setText(match.getScore1());
+        score2.setText(match.getScore2());
+        status.setText(match.getStatus());
+        time.setText(match.getTime());
         // Return the completed view to render on screen
         return convertView;
     }
