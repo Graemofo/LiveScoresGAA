@@ -10,6 +10,7 @@
         android:orientation="vertical">
 
         <TextView
+
             android:id="@+id/league"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,19 +27,18 @@
         android:orientation="horizontal">
 
 
-
-
         <TextView
-            android:fontFamily="@font/montserrat"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:padding="4dp"
-            android:textAlignment="center"
-            android:textColor="#2196F3"
+
             android:id="@+id/status"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserrat"
+            android:padding="4dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#2196F3" />
 
 
 
@@ -57,13 +57,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
-                android:padding="4dp"
+                android:padding="2dp"
                 android:text=""
 
                  />
             <TextView
                 android:layout_weight="5"
-                android:padding="4dp"
+                android:padding="2dp"
                 android:fontFamily="@font/montserrat"
                 android:textColor="#CDD3D8"
                 android:id="@+id/team2"
@@ -85,7 +85,7 @@
             <TextView
                 android:fontFamily="@font/montserrat"
                 android:layout_weight="2"
-                android:padding="4dp"
+                android:padding="2dp"
                 android:textAlignment="center"
                 android:textColor="#CDD3D8"
                 android:id="@+id/score1"
@@ -95,7 +95,7 @@
             <TextView
                 android:fontFamily="@font/montserrat"
                 android:layout_weight="2"
-                android:padding="4dp"
+                android:padding="2dp"
                 android:textAlignment="center"
                 android:textColor="#CDD3D8"
                 android:id="@+id/score2"
@@ -107,17 +107,18 @@
         </LinearLayout>
 
         <TextView
-            android:fontFamily="@font/montserrat"
-            android:textFontWeight="2"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:padding="4dp"
-            android:textAlignment="center"
-            android:textColor="#CDD3D8"
             android:id="@+id/time"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:fontFamily="@font/montserrat"
+            android:padding="2dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#CDD3D8"
+            android:textFontWeight="2"
+            android:textSize="12sp" />
 
 
 

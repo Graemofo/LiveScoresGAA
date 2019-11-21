@@ -22,17 +22,34 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements ListView.OnCreateContextMenuListener{
 
     ListView listview;
-  //  TextView textView;
-  //  TextView textView2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-      //  textView = findViewById(R.id.textview);
-      //  textView2 = findViewById(R.id.textview2);
+
         listview = findViewById(R.id.listview);
+        Thread thread = new Thread(){
+            @Override
+            public void run(){
+                while(!isInterrupted()){
+                    try {
+                        Thread.sleep(3000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {              // ------------------------------------
+                                new getData().execute();
+                            }                               // -------------------------------------
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
 
         new getData().execute();
+        thread.start();
 
     }//end of on create
 
@@ -101,23 +118,15 @@ public class MainActivity extends AppCompatActivity implements ListView.OnCreate
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-//            ArrayAdapter<Match> itemsAdapter =
-//                    new ArrayAdapter<Match>(MainActivity.this, android.R.layout.simple_list_item_1, matches);
-//            listview.setAdapter(itemsAdapter);
             UsersAdapter adapter = new UsersAdapter(MainActivity.this, matches);
              // Attach the adapter to a ListView
             ListView listView = findViewById(R.id.listview);
             listView.setAdapter(adapter);
-
-//            for(Match m : matches){
-//                textView2.setText(m.getLeague());
-//                textView.setText(m.getTeam1()+" "+m.getScore1()+"  -  "+m.getScore2()+ " "+m.getTeam2()+" "+m.getStatus()+" "+m.getTime());
-//            }
         }
     }
 
 
-}//end of MainActivity
+    }//end of MainActivity
 //add public
 // https://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView
 class UsersAdapter extends ArrayAdapter<Match> {
@@ -141,13 +150,15 @@ class UsersAdapter extends ArrayAdapter<Match> {
         TextView time = convertView.findViewById(R.id.time);
         TextView league = convertView.findViewById(R.id.league);
         // Populate the data into the template view using the data object
+        long millis = System.currentTimeMillis();
+        String word = Long.toString(millis);
         team1.setText(match.getTeam1());
         team2.setText(match.getTeam2());
         score1.setText(match.getScore1());
         score2.setText(match.getScore2());
         status.setText(match.getStatus());
         time.setText(match.getTime());
-        league.setText(match.getLeague());
+        league.setText(word);
         // Return the completed view to render on screen
         return convertView;
     }
