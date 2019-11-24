@@ -26,6 +26,20 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
+<!--  Side bar to show match is in play or not  -->
+            <TextView
+
+                android:id="@+id/sidebar"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:padding="1dp"
+                android:text=""
+                android:textAlignment="center"
+
+                android:textColor="#2196F3" />
 
         <TextView
 
@@ -39,6 +53,8 @@
             android:text=""
             android:textAlignment="center"
             android:textColor="#2196F3" />
+
+
 
 
 
@@ -83,6 +99,7 @@
             android:orientation="vertical">
 
             <TextView
+
                 android:fontFamily="@font/montserrat"
                 android:layout_weight="2"
                 android:padding="2dp"
@@ -91,7 +108,8 @@
                 android:id="@+id/score1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:text=""
+                android:textStyle="bold"/>
             <TextView
                 android:fontFamily="@font/montserrat"
                 android:layout_weight="2"
@@ -101,7 +119,8 @@
                 android:id="@+id/score2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:text=""
+                android:textStyle="bold"/>
 
 
         </LinearLayout>

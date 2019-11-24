@@ -1,13 +1,20 @@
 package com.nci.graeme.livescoregaa;
+//Bugs
+// https://stackoverflow.com/questions/28741645/how-to-implement-onscrolllistener-to-a-listview
 
+// Splash Screen Gif Tutorial https://www.youtube.com/watch?v=0F_-ckbWv9c
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,15 +27,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements ListView.OnCreateContextMenuListener{
+    private Button feedButton;
+    private ListView listview;
 
-    ListView listview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        feedButton = findViewById(R.id.buttonFeed);
         listview = findViewById(R.id.listview);
+
+        feedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLiveFeed();
+            }
+        });
+
+
+
+
+
         Thread thread = new Thread(){
             @Override
             public void run(){
@@ -114,15 +134,27 @@ public class MainActivity extends AppCompatActivity implements ListView.OnCreate
             return null;
         }
 
-
+//https://stackoverflow.com/questions/37432209/maintain-the-scroll-position-of-a-listview-after-getting-new-data
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
             UsersAdapter adapter = new UsersAdapter(MainActivity.this, matches);
              // Attach the adapter to a ListView
             ListView listView = findViewById(R.id.listview);
             listView.setAdapter(adapter);
+          //  adapter.notifyDataSetChanged();
+            adapter.remove(matches.get(0)); //removes the empty view in the ListView
+
+
+
+
         }
+    }
+    //Open Live Feed
+    public void openLiveFeed(){
+        Intent intent = new Intent(this, FeedActivity.class);
+        startActivity(intent);
     }
 
 
@@ -149,17 +181,24 @@ class UsersAdapter extends ArrayAdapter<Match> {
         TextView status = convertView.findViewById(R.id.status);
         TextView time = convertView.findViewById(R.id.time);
         TextView league = convertView.findViewById(R.id.league);
+        TextView sidebar = convertView.findViewById(R.id.sidebar);
         // Populate the data into the template view using the data object
-        long millis = System.currentTimeMillis();
-        String word = Long.toString(millis);
+        long millis = System.currentTimeMillis();     //for testing Thread
+        String word = Long.toString(millis);          //for testing Thread
         team1.setText(match.getTeam1());
         team2.setText(match.getTeam2());
         score1.setText(match.getScore1());
         score2.setText(match.getScore2());
         status.setText(match.getStatus());
         time.setText(match.getTime());
-        league.setText(word);
+        league.setText(match.getLeague());
+        if(!match.getStatus().equals("FT")){
+            sidebar.setBackgroundColor(Color.parseColor("#2196F3"));
+        }
+        //Change this
         // Return the completed view to render on screen
         return convertView;
+
+
     }
 }
